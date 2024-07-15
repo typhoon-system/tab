@@ -1,0 +1,46 @@
+[package]
+name = "warp-blink-wrtc"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib", "staticlib"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = { workspace = true }
+async-trait = { workspace = true }
+async-stream = { workspace = true }
+bytes = { workspace = true }
+# the mp4 crate uses byteorder
+byteorder = "*"
+bs58 = { workspace = true }
+derive_more = { workspace = true }
+futures = { workspace = true }
+rust-ipfs = { workspace = true }
+libipld = { workspace = true }
+log = "0.4.17"
+mp4 = { workspace = true }
+once_cell = { workspace = true }
+opus = { workspace = true }
+uuid = { workspace = true }
+rand = { workspace = true }
+ringbuf = "0.3"
+serde = { workspace = true, features = ["derive"] }
+serde_cbor = { workspace = true }
+tokio = { workspace = true }
+warp.workspace = true
+webrtc = "0.6.0"
+rayon = "1.8"
+parking_lot.workspace = true
+
+# media 
+cpal = "0.15.0"
+
+[build-dependencies]
+cbindgen = "0.23"
+
+[features]
+build-header = []
+loopback = []

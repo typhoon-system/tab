@@ -1,0 +1,85 @@
+[package]
+name = "warp"
+version.workspace = true
+description = "TBD"
+# readme = "README.md"
+license.workspace = true
+edition.workspace = true
+repository.workspace = true
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+crate-type = ["cdylib", "rlib", "staticlib"]
+
+
+[dependencies]
+
+# Async and futures crates
+futures.workspace = true
+async-trait.workspace = true
+async-stream.workspace = true
+async-broadcast.workspace = true
+
+# Crypto crates
+ed25519-dalek.workspace = true
+sha2.workspace = true
+hmac.workspace = true
+digest.workspace = true
+aes-gcm = { workspace = true, features = ["stream"] }
+zeroize.workspace = true
+rand.workspace = true
+multihash = { workspace = true, features = ["sha1"] }
+did-key.workspace = true
+tiny-bip39.workspace = true
+
+# Error handling crates
+anyhow.workspace = true
+thiserror.workspace = true
+
+# Sync crates
+parking_lot = { workspace = true, features = ["serde"] }
+
+# Time crate
+chrono = { workspace = true }
+
+# Encoding and Serializing Crates
+serde.workspace = true
+serde_cbor.workspace = true
+serde_json.workspace = true
+bincode.workspace = true
+bs58.workspace = true
+hex.workspace = true
+
+# Misc
+dyn-clone.workspace = true
+uuid.workspace = true
+derive_more.workspace = true
+paste.workspace = true
+tracing = { workspace = true }
+mediatype.workspace = true
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+tokio = { workspace = true }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+tokio = { version = "1", default-features = false, features = ["sync"]}
+wasm-bindgen.workspace = true
+gloo.workspace = true
+web-sys.workspace = true
+js-sys.workspace = true
+console_error_panic_hook.workspace = true
+wasm-streams.workspace = true
+wasm-bindgen-futures.workspace = true
+serde-wasm-bindgen.workspace = true
+
+[features]
+default = []
+wasm_debug = []
+
+# These are use for build.rs to install cbindgen and nightly toolchain to generate headers
+# Note this will change in the future once its fixed upstream
+build-header = []
+force-install = []
+
+[build-dependencies]
+cbindgen = "0.23"
