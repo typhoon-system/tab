@@ -30,10 +30,9 @@ pub enum RayGunEventKind {
 
 pub type RayGunEventStream = BoxStream<'static, RayGunEventKind>;
 
-pub struct Group {
+pub struct Group2 {
     name: String,
 }
-
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "snake_case")]
