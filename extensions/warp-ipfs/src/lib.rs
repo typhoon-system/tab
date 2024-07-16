@@ -1393,6 +1393,9 @@ impl IdentityInformation for WarpIpfs {
 }
 
 #[async_trait::async_trait]
+impl Wallet for WarpIpfs {}
+
+#[async_trait::async_trait]
 impl RayGun for WarpIpfs {
     async fn create_conversation(&mut self, did_key: &DID) -> Result<Conversation, Error> {
         self.messaging_store()?.create_conversation(did_key).await
