@@ -55,6 +55,8 @@ use warp::raygun::{
     Messages, PinState, RayGun, RayGunAttachment, RayGunEventKind, RayGunEventStream, RayGunEvents,
     RayGunGroupConversation, RayGunStream, ReactionState,
 };
+use warp::wallet::{Wallet, WalletEventKind, WalletEventStream, WalletEvents};
+
 use warp::tesseract::{Tesseract, TesseractEvent};
 use warp::{Extension, SingleHandle};
 
@@ -138,14 +140,23 @@ impl WarpIpfsBuilder {
     // }
 
     /// Creates trait objects of the
-    pub async fn finalize(self) -> (Box<dyn MultiPass>, Box<dyn RayGun>, Box<dyn Constellation>) {
+    pub async fn finalize(
+        self,
+    ) -> (
+        Box<dyn MultiPass>,
+        Box<dyn RayGun>,
+        Box<dyn Wallet>,
+        Box<dyn Constellation>,
+    ) {
         let instance = WarpIpfs::new(self.config, self.tesseract).await;
 
         let mp = Box::new(instance.clone()) as Box<_>;
         let rg = Box::new(instance.clone()) as Box<_>;
+        let wl: Box<dyn Wallet> = Box::new(instance.clone()) as Box<_>;
+
         let fs = Box::new(instance) as Box<_>;
 
-        (mp, rg, fs)
+        (mp, rg, wl, fs)
     }
 }
 
